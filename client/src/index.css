@@ -1,0 +1,216 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* No dark theme yet: dark: classes apply only under a .dark class, never from the phone's setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  /* An empty field's edge reaches 3 to 1 on white; cards and dividers keep the paler --border. */
+  --input: oklch(0.62 0 0);
+  --ring: oklch(0.55 0 0);
+
+  /* Interaction: one hover for every ghost and outline button, menu item and row link. */
+  --hover: color-mix(in oklab, var(--foreground) 8%, transparent);
+  --selected: color-mix(in oklab, var(--foreground) 14%, transparent);
+
+  /* Meaning: what a colour says, wherever it prints. */
+  --positive: #3F7F12;
+  --negative: #C0362C;
+  --savings: #4A5B9E;
+  --attention: #B45309;
+  --attention-soft: #FEF3C7;
+  --muted-out: var(--muted-foreground);
+  /* A pale red for a small chip, such as "1 grupo acima da meta". --negative on it reads at 5.0 to 1. */
+  --negative-soft: #FEF2F2;
+  /*
+   * The dark Saldo do mês card on Visão (mockup ShadcnVisao). Contrast against the #171717 fill:
+   * figure #FAFAFA 17.2 to 1, label and note #D4D4D4 12.1 to 1, and a negative figure #F26B5E 6.0 to 1.
+   * The usual --negative (#C0362C) reaches only 3.3 to 1 here, so the card has its own red.
+   */
+  --result-card: #171717;
+  --result-card-foreground: #FAFAFA;
+  --result-card-muted: #D4D4D4;
+  --result-card-negative: #F26B5E;
+
+  /* Domain colours: budget piles, people, and the bars that draw them. */
+  --bucket-needs: #A88414;
+  --bucket-wants: #C2683C;
+  --bucket-savings: #4A5B9E;
+  --bucket-none: #8A8A8A;
+  --person-0: #2F6B5E;
+  --person-1: #8C4A6B;
+  --person-2: #5B4A8C;
+  --person-3: #6B6B2F;
+  --household: #171717;
+  --bar-track: var(--muted);
+  --bar-neutral: #E5E5E5;
+  --bar-strong: #404040;
+  /*
+   * Gasto por dia on Análise: how much of the subject's colour each of the five shade steps takes,
+   * mixed into the card colour. Steps 1 to 4 keep dark text at 5 to 1 or better on every subject's
+   * colour (Casa's near-black is the tightest, 5.1 at step 4); step 5 is the full colour with light text.
+   */
+  --calendar-step-1: 12%;
+  --calendar-step-2: 26%;
+  --calendar-step-3: 40%;
+  --calendar-step-4: 54%;
+  /*
+   * Mês a mês on Análise shares steps 1 to 4 with the calendar. Its fifth step stops at 72% of the group
+   * colour instead of the full colour, because its cells hold small dark text: at 72% that text keeps
+   * 5 to 1 or better on the needs, wants, savings and ungrouped colours, and the full colour does not.
+   */
+  --month-cell-step-5: 72%;
+}
+
+@theme inline {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-hover: var(--hover);
+  --color-selected: var(--selected);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-savings: var(--savings);
+  --color-attention: var(--attention);
+  --color-attention-soft: var(--attention-soft);
+  --color-muted-out: var(--muted-out);
+  --color-negative-soft: var(--negative-soft);
+  --color-result-card: var(--result-card);
+  --color-result-card-foreground: var(--result-card-foreground);
+  --color-result-card-muted: var(--result-card-muted);
+  --color-result-card-negative: var(--result-card-negative);
+  --color-bucket-needs: var(--bucket-needs);
+  --color-bucket-wants: var(--bucket-wants);
+  --color-bucket-savings: var(--bucket-savings);
+  --color-bucket-none: var(--bucket-none);
+  --color-person-0: var(--person-0);
+  --color-person-1: var(--person-1);
+  --color-person-2: var(--person-2);
+  --color-person-3: var(--person-3);
+  --color-household: var(--household);
+  --color-bar-track: var(--bar-track);
+  --color-bar-neutral: var(--bar-neutral);
+  --color-bar-strong: var(--bar-strong);
+
+  /* Six type sizes. Line heights match the Tailwind size each one sits beside. */
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.5;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: calc(1 / 0.75);
+  --text-body: 0.875rem;
+  --text-body--line-height: calc(1.25 / 0.875);
+  --text-heading: 1rem;
+  --text-heading--line-height: 1.5;
+  --text-figure: 1.5rem;
+  --text-figure--line-height: calc(2 / 1.5);
+  --text-title: 1.875rem;
+  --text-title--line-height: 1.2;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-variant-numeric: tabular-nums;
+  }
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+  /* On a phone the bottom tabs cover 4rem; an item scrolled into view stops above them. */
+  html {
+    @apply scroll-pb-24 md:scroll-pb-0;
+  }
+  /*
+   * The review screen also has its confirm bar above the tabs (see ConfirmBar). Below md that is
+   * the bar's tallest steady height, 134 px (border, 12 px padding, 20 px counts line, two stacked
+   * 36 px buttons with an 8 px gap, same again below; the arithmetic is in ConfirmBar), plus the
+   * 64 px tabs, plus 16 px: 214 px = 13.375rem.
+   */
+  html.review-screen {
+    @apply scroll-pb-[13.375rem] md:scroll-pb-0;
+  }
+  /*
+   * The batch bar of Transações is fixed above the tabs below md while lines are selected (see
+   * SelectionBar). Its tallest steady height at 375 px is 150 px (the arithmetic is in SelectionBar),
+   * it sits 80 px up (the 64 px tabs and a 16 px gap), plus 16 px of air: 246 px, rounded up to 15.5rem.
+   */
+  html.selection-bar-open {
+    @apply scroll-pb-[15.5rem] md:scroll-pb-0;
+  }
+}
+
+@layer components {
+  /*
+   * A day of the Gasto por dia calendar. The table sets --calendar-subject to the person's colour (or
+   * Casa's); data-step is 1 to 5, and a day with no spending has none and stays blank.
+   * A cell of Mês a mês (.month-cell) shades the same way, with its row's group colour as --calendar-subject.
+   */
+  .calendar-day[data-step],
+  .month-cell[data-step] {
+    background-color: color-mix(in srgb, var(--calendar-subject) var(--calendar-step), var(--card));
+  }
+  .calendar-day[data-step='1'],
+  .month-cell[data-step='1'] {
+    --calendar-step: var(--calendar-step-1);
+  }
+  .calendar-day[data-step='2'],
+  .month-cell[data-step='2'] {
+    --calendar-step: var(--calendar-step-2);
+  }
+  .calendar-day[data-step='3'],
+  .month-cell[data-step='3'] {
+    --calendar-step: var(--calendar-step-3);
+  }
+  .calendar-day[data-step='4'],
+  .month-cell[data-step='4'] {
+    --calendar-step: var(--calendar-step-4);
+  }
+  .month-cell[data-step='5'] {
+    --calendar-step: var(--month-cell-step-5);
+  }
+  .calendar-day[data-step='5'] {
+    background-color: var(--calendar-subject);
+    color: var(--primary-foreground);
+  }
+}
