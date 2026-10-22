@@ -9,6 +9,9 @@ import { AnalisePage } from '@/pages/AnalisePage';
 import { CategoriasPage } from '@/pages/CategoriasPage';
 import { FornecedoresPage } from '@/pages/FornecedoresPage';
 import { GeralPage } from '@/pages/GeralPage';
+import { IaPage } from '@/pages/IaPage';
+import { ImportarPage } from '@/pages/ImportarPage';
+import { ImportReviewPage } from '@/pages/ImportReviewPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { OrcamentoPage } from '@/pages/OrcamentoPage';
 import { ParcelasPage } from '@/pages/ParcelasPage';
@@ -29,7 +32,8 @@ export function AppRoutes() {
       <Route element={<Layout />}>
         <Route index element={<VisaoPage />} />
         <Route path="transacoes" element={<TransacoesPage />} />
-        <Route path="transacoes/importar/*" element={<Navigate to="/" replace />} />
+        <Route path="transacoes/importar" element={<ImportarPage />} />
+        <Route path="transacoes/importar/:id" element={<ImportReviewPage />} />
         <Route path="transacoes/parcelas" element={<ParcelasPage />} />
         <Route path="orcamento" element={<OrcamentoPage />} />
         <Route path="analise" element={<AnalisePage />} />
@@ -39,7 +43,7 @@ export function AppRoutes() {
         <Route path="configuracoes/fornecedores" element={<FornecedoresPage />} />
         <Route path="configuracoes/tags" element={<TagsPage />} />
         <Route path="configuracoes/pessoas" element={<PessoasPage />} />
-        <Route path="configuracoes/ia" element={<Navigate to="/configuracoes" replace />} />
+        <Route path="configuracoes/ia" element={<IaPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

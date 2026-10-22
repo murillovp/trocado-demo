@@ -21,6 +21,7 @@ import { useSelectionMode, type SelectShow } from '@/lib/useSelectionMode';
 import { useOpenRow, type UnsavedGuard } from '@/lib/useOpenRow';
 import { cn } from '@/lib/utils';
 import { bucketFilterLabel, countActiveFilters, countPanelFilters, type BucketFilter } from '@/lib/transacoesLink';
+import { AddLineDialog } from './transacoes/AddLineDialog';
 import { LinesFilters } from './transacoes/LinesFilters';
 import { BatchBar } from './transacoes/BatchBar';
 import { LineRow } from './transacoes/LineRow';
@@ -41,6 +42,7 @@ function LinesScreen({ subject, people }: { subject: Subject; people: Person[] }
   const filters = useTransacoesFilters();
   const { search, accountIds, categoryId, kind, bucket, savingsLabel, tagId, date, allMonths } = filters.values;
   const { openId, toggle, close, guard } = useOpenRow();
+  const [adding, setAdding] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
   const [searchReset, setSearchReset] = useState(0);
 
@@ -108,6 +110,7 @@ function LinesScreen({ subject, people }: { subject: Subject; people: Person[] }
     <>
       <SubjectHeader subject={subject} people={people} allowHousehold showMonth={!allMonths && date === ''} />
       <nav aria-label="Páginas de Transações" className="flex gap-4 text-sm md:hidden">
+        <TextLink to="/transacoes/importar">Importar</TextLink>
         <TextLink to="/transacoes/parcelas">Parcelas</TextLink>
       </nav>
 
@@ -161,6 +164,7 @@ function LinesScreen({ subject, people }: { subject: Subject; people: Person[] }
           ) : undefined
         }
         clear={activeFilters > 0 ? <ClearFiltersButton count={activeFilters} onClear={clearFilters} /> : undefined}
+        onAdd={() => setAdding(true)}
         selectToggle={
           selectMode.touch && rows.length > 0 ? (
             <Button variant="outline" onClick={selectMode.toggle}>
@@ -209,6 +213,9 @@ function LinesScreen({ subject, people }: { subject: Subject; people: Person[] }
           )
         }
       </QueryView>
+      {adding ? (
+        <AddLineDialog open onOpenChange={setAdding} people={people} defaultPersonId={personId} month={month} />
+      ) : null}
     </>
   );
 }

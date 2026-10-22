@@ -33,9 +33,11 @@ async function main(): Promise<void> {
   }
 
   try {
-    for (const address of ['household', 'accounts', 'categories', 'imports', 'installments', 'integrity', 'months/latest', 'settings', 'vendors', 'transactions']) {
+    for (const address of ['household', 'accounts', 'categories', 'installments', 'integrity', 'months/latest', 'settings', 'vendors', 'transactions']) {
       await save(`/api/${address}`);
     }
+    const importsAnswer = (await save('/api/imports')) as { imports: Row[] };
+    for (const item of importsAnswer.imports) await save(`/api/imports/${item.id}`);
     const peopleAnswer = (await save('/api/people')) as { people: Row[] };
     const tagsAnswer = (await save('/api/tags')) as { tags: Row[] };
     const categoriesAnswer = (await save('/api/categories')) as { categories: (Row & { appliesTo?: string })[] };

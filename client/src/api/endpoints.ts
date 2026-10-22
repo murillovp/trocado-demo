@@ -66,6 +66,7 @@ import type {
   VendorEditAnswer,
   VendorsAnswer,
 } from './types';
+import { postWithProgress, type UploadStep } from './upload';
 
 // People and accounts
 
@@ -100,6 +101,22 @@ export const updateHousehold = (patch: HouseholdPatch) => api.patch<HouseholdAns
 // Imports
 
 export const listImports = (signal?: AbortSignal) => api.get<ImportsAnswer>('/api/imports', signal);
+
+type UploadOptions = { signal?: AbortSignal };
+
+/** Uploads a bank file and reports each step. Keeps `postWithProgress`, the one call that reports upload progress. */
+export const uploadImport = (
+  body: ImportUpload,
+  onStep: (step: UploadStep) => void,
+  options?: UploadOptions,
+) => postWithProgress<ImportSummaryAnswer>('/api/imports', body, onStep, options);
+
+/** Uploads Swile screenshots and reports each step. */
+export const uploadScreenshots = (
+  body: ScreenshotUpload,
+  onStep: (step: UploadStep) => void,
+  options?: UploadOptions,
+) => postWithProgress<ImportSummaryAnswer>('/api/imports/screenshots', body, onStep, options);
 
 export const reclassifyImports = () => api.post<ReclassifyResult>('/api/imports/reclassify');
 

@@ -21,6 +21,7 @@ export const MENU: MenuNode[] = [
     to: '/transacoes',
     icon: ArrowLeftRight,
     children: [
+      { label: 'Importar', to: '/transacoes/importar' },
       { label: 'Parcelas', to: '/transacoes/parcelas' },
     ],
   },
@@ -35,6 +36,7 @@ export const MENU: MenuNode[] = [
       { label: 'Tags', to: '/configuracoes/tags' },
       { label: 'Fornecedores', to: '/configuracoes/fornecedores' },
       { label: 'Pessoas e contas', to: '/configuracoes/pessoas' },
+      { label: 'Inteligência artificial', to: '/configuracoes/ia' },
     ],
   },
 ];

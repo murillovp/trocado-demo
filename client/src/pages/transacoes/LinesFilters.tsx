@@ -94,6 +94,7 @@ type Props = {
   chips?: ReactNode;
   /** The "Limpar filtros" button. Left out while no filter is on. */
   clear?: ReactNode;
+  onAdd: () => void;
   /** The "Selecionar" / "Cancelar" button of a touch screen, which has no hover to reveal the checkboxes. Left out with a pointer. */
   selectToggle?: ReactNode;
 };
@@ -118,7 +119,7 @@ function filtersButtonName(count: number): string {
  */
 export function LinesFilters({
   search, onSearch, searchRef, searchReset, accounts, accountIds, onAccounts, categoryId, categoryOptions, onCategory,
-  kind, onKind, tagOptions, tagId, onTag, panelCount, chips, clear, selectToggle,
+  kind, onKind, tagOptions, tagId, onTag, panelCount, chips, clear, onAdd, selectToggle,
 }: Props) {
   const panelId = useId();
   const [open, setOpen] = useState(false);
@@ -143,6 +144,9 @@ export function LinesFilters({
         {panelCount > 0 ? `Filtros · ${panelCount}` : 'Filtros'}
       </Button>
       {selectToggle ? <div className="md:order-1">{selectToggle}</div> : null}
+      <Button className="ml-auto md:order-1" onClick={onAdd}>
+        Adicionar lançamento
+      </Button>
       <div
         id={panelId}
         role="region"

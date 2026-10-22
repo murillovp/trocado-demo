@@ -13,6 +13,7 @@ const PAGES = [
   { to: '/configuracoes/categorias', title: 'Categorias', text: 'Cada categoria dentro de um grupo do 50/30/20.' },
   { to: '/configuracoes/fornecedores', title: 'Fornecedores', text: 'Os apelidos guardados e as regras que os reconhecem.' },
   { to: '/configuracoes/pessoas', title: 'Pessoas e contas', text: 'Metas e renda de referência de cada um, e as contas.' },
+  { to: '/configuracoes/ia', title: 'Inteligência artificial', text: 'Qual modelo dá nome e categoria aos fornecedores novos.' },
 ];
 
 function Fact({ label, value }: { label: string; value: ReactNode }) {
